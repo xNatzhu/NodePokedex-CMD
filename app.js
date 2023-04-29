@@ -9,7 +9,20 @@ const main = async()=>{
 
         switch (opt) {
             case 1:
-                console.log("Primera opcion");
+                //Mostar Mensaje:
+                /*Por medio de un input leera que tipo de pokemon esta buscando*/
+
+                const pokemonNombre = await inquirerInput("Pokemon: ")
+                console.log(pokemonNombre);
+
+                //Mostrar Resultados:
+
+                console.log("\nInformacion de Pokemon\n".cyan);
+
+                console.log("Nombre: ");
+                console.log("Peso: ");
+                console.log("Tamaño: ");
+                console.log("Descripcion: ");
                 break;
         
             case 2:
