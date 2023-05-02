@@ -1,4 +1,5 @@
 import axios from 'axios';
+import colors from "colors";
 
 class Busqueda{
     constructor(){
@@ -18,9 +19,6 @@ class Busqueda{
         - Compartir una instancia de Axios personalizada entre distintos módulos de una aplicación para evitar la duplicación de código.
         
         */
-
-
-        console.log(pokemon);
         try {
             const instancia = axios.create({
                 baseURL:`https://pokeapi.co/api/v2/pokemon/${pokemon}/`,//En este se añadira la base del url estatico.

@@ -1,6 +1,8 @@
 import { inquirerInput, inquirerMenu, inquirerPause} from "./helpers/inquirer.js"
 import colors from "colors";
 import Busqueda from "./models/busqueda.js";
+import terminalImage from 'terminal-image';
+import got from 'got';
 
 const main = async()=>{
     let opt;
@@ -16,17 +18,20 @@ const main = async()=>{
 
                 const pokemonNombre = await inquirerInput("Pokemon: ")
                 const poke = await busqueda.nombrePokemon(pokemonNombre)
+                const body = await got(`${poke.img}`).buffer();
 
                 //Mostrar Resultados:
-
-                console.log("\nInformacion de Pokemon\n".cyan);
-                console.log("Imagen: ", poke.img);
-                console.log("Nombre: ",poke.name);
-                console.log("Id: ", poke.id);
-                console.log("Peso: ", poke.weight);
-                console.log("Tamaño: ", poke.height);
-                console.log("Tipo: ", poke.type);
-                console.log("Descripcion: ", poke.description);
+                
+                console.log(await terminalImage.buffer(body))
+                console.log("         Informacion de Pokemon      \n".cyan);
+                console.log(colors.cyan("Nombre: "), colors.green(poke.name));
+                console.log(colors.cyan("Id: "), colors.green(poke.id));
+                console.log(colors.cyan("Peso: "), colors.green(poke.weight));
+                console.log(colors.cyan("Tamaño: "), colors.green(poke.height));
+                console.log(colors.cyan("Tipo: "), colors.green(poke.type));
+                console.log(colors.cyan("Descripcion: "), colors.green(poke.description));
+                
+                
                 break;
         
             case 2:
