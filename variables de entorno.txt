@@ -1,0 +1,24 @@
+dotenv ->Es un paquete que nos permite crear variables de entorno.
+
+1. Creo un archivo de texto, en la cual va tener la informacion de las variables que le voy añadir. por ejemplo en el archivo de texto puede ser asi:
+
+MAPBOX_KEY = 1555411XDFSADAS
+
+2. El archivo creado, pasa llamarse ".env" asi se van definir las variables de entorno.
+
+3. Una vez que configure en una hoja cual van ser mis variables de entorno empezamos a importar el paquete "dotenv". 
+
+4. Una vez importado utilizamos el metodo .config() que nos permitira realizar esta accion.
+
+Las variables de entornos siempre se encuentran en nuestro process.
+Las variables de entorno son valores configurables en el sistema operativo o en la aplicación que definen información importante, como rutas de acceso, configuraciones y preferencias. 
+
+Para despues utilizarla solamente debemos llamar a process.env.nombre-de-la-variable-de-entorno-que-le-pusimos-al-archivo.
+
+Normalmente estas variables de entorno no se acostumbran que se suban a github, estos van accesos que van o que su aplicacion va tener para que hagan algunas pruebas.
+
+Lo que se suele hacer a menudo es crear dos env.
+
+1. El que tiene la informacion de las variables entornos que no se subira
+2. un "example o ejemplo.env" que este se subira y se dejara las variables de entorno vacias, para que el desarrollador las complete con sus datos. (Ejemplo tokens)
+

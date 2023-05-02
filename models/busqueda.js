@@ -23,7 +23,7 @@ class Busqueda{
         console.log(pokemon);
         try {
             const instancia = axios.create({
-                baseURL:`https://pokeapi.co/api/v2/pokemon-species/${pokemon}/`,//En este se añadira la base del url estatico.
+                baseURL:`https://pokeapi.co/api/v2/pokemon/${pokemon}/`,//En este se añadira la base del url estatico.
                 //Este sirve para añadir los parametros de la url que puede contener.
                 /*
                 para los parametros --"params"-- sirve para añadir todo los parametros de la url que va tener, por ejemplo limite, token, lenguaje.
@@ -31,12 +31,29 @@ class Busqueda{
                     "limit":25,
                 }
                 */
-
             })
+            
             const url = await instancia.get();
-            //const pokemonDescription = pokemonSpeciesData.data.flavor_text_entries[0].flavor_text;
+            const pokemonDescription = await axios.get(url.data.species.url);
 
-            console.log(url.data);
+            const idPokemon = url.data.id;
+            const typePokemon = url.data.types.map(typeObj => typeObj.type.name);
+            const phrasePokemon = pokemonDescription.data.flavor_text_entries.filter(phrase=> phrase.language.name == "es")
+
+
+            const objPokemon = {
+                name:url.data.name,
+                id:idPokemon,
+                img:url.data.sprites.front_default,
+                weight:url.data.weight,
+                height:url.data.height,
+                type:typePokemon.join(" - "),
+                description:phrasePokemon[Math.floor(Math.random() * phrasePokemon.length)].flavor_text
+            }
+            return objPokemon
+
+            
+
         } catch (error) {
             console.log(error);
         }

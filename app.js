@@ -15,20 +15,18 @@ const main = async()=>{
                 /*Por medio de un input leera que tipo de pokemon esta buscando*/
 
                 const pokemonNombre = await inquirerInput("Pokemon: ")
-                poke = await busqueda.nombrePokemon(pokemonNombre)
-                
-                console.log(poke);
-
-               
+                const poke = await busqueda.nombrePokemon(pokemonNombre)
 
                 //Mostrar Resultados:
 
                 console.log("\nInformacion de Pokemon\n".cyan);
-
-                console.log("Nombre: ");
-                console.log("Peso: ");
-                console.log("Tamaño: ");
-                console.log("Descripcion: ");
+                console.log("Imagen: ", poke.img);
+                console.log("Nombre: ",poke.name);
+                console.log("Id: ", poke.id);
+                console.log("Peso: ", poke.weight);
+                console.log("Tamaño: ", poke.height);
+                console.log("Tipo: ", poke.type);
+                console.log("Descripcion: ", poke.description);
                 break;
         
             case 2:
