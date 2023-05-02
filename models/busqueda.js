@@ -19,9 +19,11 @@ class Busqueda{
         - Compartir una instancia de Axios personalizada entre distintos módulos de una aplicación para evitar la duplicación de código.
         
         */
+       const pokemonNombre = pokemon.toLowerCase()
+
         try {
             const instancia = axios.create({
-                baseURL:`https://pokeapi.co/api/v2/pokemon/${pokemon}/`,//En este se añadira la base del url estatico.
+                baseURL:`https://pokeapi.co/api/v2/pokemon/${pokemonNombre}/`,//En este se añadira la base del url estatico.
                 //Este sirve para añadir los parametros de la url que puede contener.
                 /*
                 para los parametros --"params"-- sirve para añadir todo los parametros de la url que va tener, por ejemplo limite, token, lenguaje.
