@@ -1,9 +1,11 @@
 import { inquirerInput, inquirerMenu, inquirerPause} from "./helpers/inquirer.js"
 import colors from "colors";
-
+import Busqueda from "./models/busqueda.js";
 
 const main = async()=>{
     let opt;
+    const busqueda = new Busqueda();
+
     do {
         opt = await inquirerMenu()
 
@@ -13,7 +15,11 @@ const main = async()=>{
                 /*Por medio de un input leera que tipo de pokemon esta buscando*/
 
                 const pokemonNombre = await inquirerInput("Pokemon: ")
-                console.log(pokemonNombre);
+                poke = await busqueda.nombrePokemon(pokemonNombre)
+                
+                console.log(poke);
+
+               
 
                 //Mostrar Resultados:
 
