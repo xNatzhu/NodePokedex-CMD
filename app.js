@@ -4,6 +4,8 @@ import Busqueda from "./models/busqueda.js";
 import terminalImage from 'terminal-image';
 import got from 'got';
 import Listado from "./models/listado.js";
+import Table from 'cli-table';
+import boxen from 'boxen';
 
 const main = async()=>{
     let opt;
@@ -13,6 +15,13 @@ const main = async()=>{
     const busqueda = new Busqueda();
     const listado = new Listado()
 
+    const table = new Table({
+        head: ["ID", "Nombre", "Tipo", "Peso", "Altura", "Descripción"],
+        style: {
+            head: ["cyan"],
+            border: ["cyan"],
+        }
+    });
     do {
         opt = await inquirerMenu()
 
@@ -28,13 +37,12 @@ const main = async()=>{
                 //Mostrar Resultados:
                 
                 console.log(await terminalImage.buffer(body))
-                console.log("         Informacion de Pokemon      \n".cyan);
-                console.log(colors.cyan("Nombre: "), colors.green(poke.name));
-                console.log(colors.cyan("Id: "), colors.green(poke.id));
-                console.log(colors.cyan("Peso: "), colors.green(poke.weight));
-                console.log(colors.cyan("Tamaño: "), colors.green(poke.height));
-                console.log(colors.cyan("Tipo: "), colors.green(poke.type));
-                console.log(colors.cyan("Descripcion: "), colors.green(poke.description));
+                console.log(boxen('Informacion de pokemon', {padding: 1}));
+                table.push(
+                    [poke.id, poke.name, poke.type, poke.weight, poke.height, poke.description]
+                  );
+                console.log(table.toString());
+                table.length = 0;
                 break;
         
             case 2:
@@ -49,13 +57,12 @@ const main = async()=>{
                 //Mostrar Resultados:
                 
                 console.log(await terminalImage.buffer(bodyPokemonListado))
-                console.log("         Informacion de Pokemon      \n".cyan);
-                console.log(colors.cyan("Nombre: "), colors.green(pokemonListadoResultado.name));
-                console.log(colors.cyan("Id: "), colors.green(pokemonListadoResultado.id));
-                console.log(colors.cyan("Peso: "), colors.green(pokemonListadoResultado.weight));
-                console.log(colors.cyan("Tamaño: "), colors.green(pokemonListadoResultado.height));
-                console.log(colors.cyan("Tipo: "), colors.green(pokemonListadoResultado.type));
-                console.log(colors.cyan("Descripcion: "), colors.green(pokemonListadoResultado.description));
+                console.log(boxen('Informacion de pokemon', {padding: 1}));
+                table.push(
+                    [pokemonListadoResultado.id.toString().green, pokemonListadoResultado.name, pokemonListadoResultado.type, pokemonListadoResultado.weight, pokemonListadoResultado.height, pokemonListadoResultado.description]
+                  );
+                console.log(table.toString());
+                table.length = 0;
                 break
         }
         

@@ -1,6 +1,6 @@
 import inquirer from 'inquirer';
 import colors from "colors";
-
+import boxen from 'boxen';
 const preguntas = [{
     type:"list",//Vamos a decir a nuestra dependencia que nos almacene como listado.
     name:"opcion", //va ser el nombre que le voy estar dando a lista.
@@ -31,9 +31,7 @@ const preguntas = [{
 }]
 const inquirerMenu = async()=>{
     console.clear()
-    console.log("=========================".green);
-    console.log("Pokedex".white);
-    console.log("========================= \n".green);//altgr + } = ` ----  altgr + ? = \
+    console.log(boxen('POKEDEX',{title: 'xNatzhu'.cyan, titleAlignment: 'center', padding: 1}));
 
     const { opcion } = await inquirer.prompt(preguntas) //El prompt en la dependencia esta esperando recibir el objeto que va estar almacenando las preguntas con sus opciones.
     return opcion
