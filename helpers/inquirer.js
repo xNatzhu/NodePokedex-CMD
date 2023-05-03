@@ -91,26 +91,25 @@ const inquirerTareaBorrar = async(tareas)=>{
     return id
 }
 
-const inquirerTareaListadoCheck = async(tareas)=>{
-    const choices = tareas.map((tarea, id)=>{
+const inquirerTareaListadoCheck = async(pokemones)=>{
+    const choices = pokemones.map((pokemon, id)=>{
         let index =`${id + 1}.`.green
         return {
-            value:tarea.id,
-            name:`${index} ${tarea.description}`,
-            checked:tarea.completed,
+            value: id + 1,
+            name:`${index} ${pokemon.name}`,
         }
     }
     )
 
     const preguntas = {
-        type:"checkbox",
-        name:"ids",
-        message:"Selecciones",
+        type:"list",
+        name:"id",
+        message:"Seleccione un respectivo pokemon",
         choices
     }
 
-    const {ids} = await inquirer.prompt(preguntas);
-    return ids
+    const id = await inquirer.prompt(preguntas);
+    return id
 }
 
 const inquirerConfirmar = async(message)=>{

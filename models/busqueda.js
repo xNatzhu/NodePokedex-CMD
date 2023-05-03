@@ -19,7 +19,8 @@ class Busqueda{
         - Compartir una instancia de Axios personalizada entre distintos módulos de una aplicación para evitar la duplicación de código.
         
         */
-       const pokemonNombre = pokemon.toLowerCase()
+        const esLetra = /^[a-zA-Z]+$/.test(pokemon);
+        const pokemonNombre = esLetra ? pokemon.toLowerCase() : pokemon;
 
         try {
             const instancia = axios.create({
@@ -45,8 +46,8 @@ class Busqueda{
                 name:url.data.name,
                 id:idPokemon,
                 img:url.data.sprites.front_default,
-                weight:url.data.weight,
-                height:url.data.height,
+                weight:`${url.data.weight} Kg`,
+                height:`${url.data.height} Cm`,
                 type:typePokemon.join(" - "),
                 description:phrasePokemon[Math.floor(Math.random() * phrasePokemon.length)].flavor_text
             }
