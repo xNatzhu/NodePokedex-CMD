@@ -15,6 +15,8 @@ const main = async()=>{
     const busqueda = new Busqueda();
     const listado = new Listado()
 
+    busqueda.leerDb()
+
     const table = new Table({
         head: ["ID", "Nombre", "Tipo", "Peso", "Altura", "Descripción"],
         style: {
@@ -32,26 +34,36 @@ const main = async()=>{
 
                 const pokemonNombre = await inquirerInput("Pokemon: ")
                 const poke = await busqueda.nombrePokemon(pokemonNombre)
-                const body = await got(`${poke.img}`).buffer();
-
-                //Mostrar Resultados:
                 
-                console.log(await terminalImage.buffer(body))
-                console.log(boxen('Informacion de pokemon', {padding: 1}));
-                table.push(
-                    [poke.id, poke.name, poke.type, poke.weight, poke.height, poke.description]
-                  );
-                console.log(table.toString());
-                table.length = 0;
+                if(poke){
+                    busqueda.agregarHistorial(poke)
+                    const body = await got(`${poke.img}`).buffer();
+                    //Mostrar Resultados:
+                    
+                    console.log(await terminalImage.buffer(body))
+                    console.log(boxen('Informacion de pokemon', {padding: 1}));
+                    table.push(
+                        [poke.id.toString().green, poke.name, poke.type, poke.weight, poke.height, poke.description]
+                      );
+                    console.log(table.toString());
+                    table.length = 0;
+                }
                 break;
         
             case 2:
-                console.log("Segunda opcion");
+                busqueda.historial.forEach((pokemon,id)=>{
+                    const idx = `${id + 1}.`.green
+                    console.log(`${idx} ${pokemon.name}`);
+                })
                 break;
+
             case 3:
                 const listadoPokemon = await listado.listadoPokemon()
                 const listadoOpcionesPokemon = await inquirerTareaListadoCheck(listadoPokemon)
                 const pokemonListadoResultado = await busqueda.nombrePokemon(listadoOpcionesPokemon.id)
+
+                busqueda.agregarHistorial(pokemonListadoResultado);
+
                 const bodyPokemonListado = await got(`${pokemonListadoResultado.img}`).buffer();
 
                 //Mostrar Resultados:

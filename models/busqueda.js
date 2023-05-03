@@ -1,7 +1,13 @@
+import fs from "fs"
+
 import axios from 'axios';
 import colors from "colors";
 
 class Busqueda{
+
+    dbPath = "./db/db.json";
+    historial = []
+
     constructor(){
 
     }
@@ -56,10 +62,45 @@ class Busqueda{
             
 
         } catch (error) {
-            console.log(error);
+            console.log("Error al obtener información del Pokémon.".red);
+            // Devolver un valor por defecto que indique que no se encontró el Pokémon
+            return false;
+            
         }
 
         return []; //Va retonar un arreglo de todo los pokemones que cohicidan con la busqueda.
+    }
+
+    agregarHistorial(pokemon) {
+        
+        const exists = this.historial.some(p => p.name === pokemon.name && p.id === pokemon.id);
+        if (exists) {
+            return;
+        }
+        this.historial.unshift(pokemon);
+        this.guardarDb();
+    }
+
+    guardarDb(){
+
+
+        fs.writeFileSync(this.dbPath, JSON.stringify(this.historial))
+        
+    }
+
+    leerDb(){
+        try{
+            const data = fs.readFileSync(this.dbPath, "UTF-8");
+
+            const historialAlmacenado = JSON.parse(data);
+
+            const filtradoHistorial = historialAlmacenado.filter((pokemon, id)=> id < 6);
+    
+            this.historial = filtradoHistorial
+        }
+        catch{
+            this.historial = [] 
+        }
     }
 }
 

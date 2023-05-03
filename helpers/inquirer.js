@@ -27,7 +27,8 @@ const preguntas = [{
         
         },
 
-    ], //Esta van ser las posibles opciones que van tener la lista
+    ], 
+    //Esta van ser las posibles opciones que van tener la lista
 }]
 const inquirerMenu = async()=>{
     console.clear()
